@@ -1,0 +1,74 @@
+<!--
+ * @Author: wangguixing
+ * @Date: 2023-02-22 09:02:48
+ * @LastEditors: wangguixing
+ * @LastEditTime: 2023-07-02 16:57:15
+ * @FilePath: \public\index.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/style/loading.css" />
+    <title><%= process.env.VUE_APP_TITLE %></title>
+    <script>
+      window.addEventListener('unhandledrejection', function browserRejectionHandler(event) {
+        event && event.preventDefault();
+      });
+    </script>
+    <style>
+      html,
+      body,
+      #App {
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .chromeframe {
+        margin: 0.2em 0;
+        background: #ccc;
+        color: #999;
+        padding: 0.2em 0;
+      }
+    </style>
+    <!-- 这里从cdn配置里面加载字体文件 -->
+    <% for (let i in htmlWebpackPlugin.options.cdnConfig && htmlWebpackPlugin.options.cdnConfig.ttf) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdnConfig.ttf[i] %>" rel="preload" as="font" crossorigin="anonymous" />
+    <% } %>
+    <!-- 这里从cdn配置里面加载css文件 -->
+    <% for (let i in htmlWebpackPlugin.options.cdnConfig && htmlWebpackPlugin.options.cdnConfig.css) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdnConfig.css[i] %>" rel="preload" as="style" />
+    <link href="<%= htmlWebpackPlugin.options.cdnConfig.css[i] %>" rel="stylesheet" />
+    <% } %>
+
+    <!-- 这里从cdn配置里面加载js文件 -->
+    <% for (let i in htmlWebpackPlugin.options.cdnConfig && htmlWebpackPlugin.options.cdnConfig.js) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdnConfig.js[i] %>" rel="preload" as="script" />
+    <% } %>
+  </head>
+
+  <body>
+    <!-- 低代码挂载容器 -->
+    <div id="App">
+      <div class="app-loading">
+        <div class="app-loading-wrap">
+          <img src="/style/icon-logo.png" class="app-loading-logo" alt="Logo" />
+          <div class="app-loading-dots">
+            <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+          </div>
+          <div class="app-loading-title">vue2.7-ts-webpack</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 这里从cdn配置里面加载js文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdnConfig && htmlWebpackPlugin.options.cdnConfig.js) { %>
+    <script src="<%= htmlWebpackPlugin.options.cdnConfig.js[i] %>"></script>
+    <% } %>
+  </body>
+</html>
